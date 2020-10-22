@@ -53,13 +53,13 @@ Call detallesProductos
 Call DetalledelaLinea
 Call ParametrosCambio
 Call RecursosCambio()
-Call TipoEnvio
+Call TipoEnvio()
 'Call reemplazarCargo
 Call GeneracionOrden
 Call EnviarOrden()
 If str_metodo_entrega <> "Delivery" Then
 		'Call PagoManual
-	Call GestionLogistica
+	Call GestionLogistica()
    Call EmpujeOrden
    Call OrdenCerrado
 End If
@@ -1531,6 +1531,12 @@ Sub EnviarOrden()
 	'Click en "Enviar orden"
 	If JavaWindow("Ejecutivo de interacción").JavaInternalFrame("Resumen de la orden (Orden").JavaButton("Enviar orden").Exist(2) Then
 		JavaWindow("Ejecutivo de interacción").JavaInternalFrame("Resumen de la orden (Orden").JavaButton("Enviar orden").Click
+		wait 8
+		If JavaWindow("Ejecutivo de interacción").JavaDialog("Mensajes de validación").Exist=True Then
+			wait 3
+		JavaWindow("Ejecutivo de interacción").JavaDialog("Mensajes de validación").JavaButton("Aceptar").Click
+
+		End If
 	End If
 
 	'Control de Mensajde de Validación
